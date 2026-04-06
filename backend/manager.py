@@ -38,11 +38,16 @@ def load_schedule(path: str = SCHEDULE_PATH) -> Schedule:
             ScheduleItem(minute=15, step="delete_cluster")
         ])
 
-def get_step_for_minute(schedule: Schedule, minute: int) -> Optional[str]:
-    """Get the step scheduled for a specific minute."""
-    for item in schedule.schedule:
-        if item.minute == minute:
-            return item.step
+def get_next_step(cluster: ClusterState, schedule: Schedule, elapsed_minutes: int) -> Optional[str]:
+    """Get the earliest step that should have run but hasn't succeeded yet."""
+    # Sort schedule by minute ascending (earliest first)
+    sorted_schedule = sorted(schedule.schedule, key=lambda x: x.minute)
+    for item in sorted_schedule:
+        if elapsed_minutes >= item.minute:
+            # Check if this step has already succeeded
+            already_done = any(log.step_name == item.step and log.status == "success" for log in cluster.step_logs)
+            if not already_done:
+                return item.step
     return None
 
 def cleanup_resources():
@@ -96,7 +101,7 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
         
         logger.info(f"Cluster {cluster.name}: elapsed minutes = {elapsed_minutes}")
         
-        step = get_step_for_minute(schedule, elapsed_minutes)
+        step = get_next_step(cluster, schedule, elapsed_minutes)
         if step:
             logger.info(f"Executing step {step} for cluster {cluster.name}")
             

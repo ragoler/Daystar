@@ -264,5 +264,6 @@ The following detailed implementation plans are stored in the `plan/` directory:
 - [Resource Saving Plan](plan/implementation_plan_resource_saving.md)
 - [Async Operations Plan](plan/implementation_plan_async_ops.md)
 - [Async Ops and 3-Min Creation Plan](plan/implementation_plan_async_and_rate.md)
+- [Robust Scheduler Plan](plan/implementation_plan_robust_scheduler.md)
 
 

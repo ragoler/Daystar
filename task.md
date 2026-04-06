@@ -19,3 +19,4 @@
 - [x] Implement non-blocking manager and cluster locking.
 - [x] Implement resource saving for GKE clusters (e2-micro).
 - [x] Implement async operations and 3-minute creation rate.
+- [x] Implement robust scheduler with missed step recovery.
