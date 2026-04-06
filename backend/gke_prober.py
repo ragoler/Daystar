@@ -67,7 +67,7 @@ class GkeProber(BaseProber):
         cluster = container_v1.Cluster(
             name=cluster_name,
             initial_node_count=1,
-            resource_labels={"label": "Daystar"}
+            resource_labels={"label": "daystar"}
         )
         
         request_data = {"parent": parent, "cluster": MessageToDict(cluster._pb) if MessageToDict and hasattr(cluster, '_pb') else str(cluster)}
@@ -257,7 +257,7 @@ spec:
         try:
             response = self.client.list_clusters(parent=parent)
             for cluster in response.clusters:
-                if cluster.resource_labels.get("label") == "Daystar":
+                if cluster.resource_labels.get("label") == "daystar":
                     self.logs += f"Found old Daystar cluster: {cluster.name}. Deleting...\n"
                     self._delete_cluster(cluster.name)
             return True

@@ -260,5 +260,6 @@ The following detailed implementation plans are stored in the `plan/` directory:
 - [Milestone 7 Overview Plan](plan/implementation_plan_m7.md)
 - [Startup Cleanup Plan](plan/implementation_plan_startup_cleanup.md)
 - [Dotenv Loading Plan](plan/implementation_plan_dotenv.md)
+- [Non-Blocking Manager Plan](plan/implementation_plan_non_blocking.md)
 
 

@@ -38,6 +38,7 @@ class ClusterState(BaseModel):
     created_at: str
     current_step: str
     status: str
+    is_running: bool = False
     step_logs: List[StepLog] = []
     api_logs: List[ApiLog] = []
 
@@ -47,10 +48,24 @@ def init_cluster(name: str) -> ClusterState:
         name=name,
         created_at=datetime.datetime.now().isoformat(),
         current_step="initialized",
-        status="pending"
+        status="pending",
+        is_running=False
     )
     clusters_table.insert(cluster.model_dump())
     return cluster
+
+def set_cluster_running(name: str, running: bool):
+    """Set cluster running state to prevent parallel execution."""
+    Cluster = Query()
+    result = clusters_table.search(Cluster.name == name)
+    if not result:
+        raise ValueError(f"Cluster {name} not found")
+    
+    cluster_data = result[0]
+    cluster = ClusterState(**cluster_data)
+    cluster.is_running = running
+    
+    clusters_table.update(cluster.model_dump(), Cluster.name == name)
 
 def update_cluster_step(name: str, step: str, status: str, log_message: str):
     """Update cluster step status and append logs."""
@@ -72,6 +87,7 @@ def update_cluster_step(name: str, step: str, status: str, log_message: str):
     cluster.current_step = step
     cluster.status = status
     cluster.step_logs.append(step_log)
+    cluster.is_running = False
     
     clusters_table.update(cluster.model_dump(), Cluster.name == name)
 

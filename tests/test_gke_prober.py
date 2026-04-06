@@ -85,7 +85,7 @@ def test_cleanup_old_resources():
     mock_response = MagicMock()
     mock_cluster1 = MagicMock()
     mock_cluster1.name = "old-cluster-1"
-    mock_cluster1.resource_labels = {"label": "Daystar"}
+    mock_cluster1.resource_labels = {"label": "daystar"}
     
     mock_cluster2 = MagicMock()
     mock_cluster2.name = "other-cluster"

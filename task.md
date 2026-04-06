@@ -15,4 +15,5 @@
 - [x] Add minutes to UI headers and create /schedule endpoint.
 - [x] Display region from .env in UI title.
 - [x] Implement dotenv loading using python-dotenv.
-- [/] Implement startup cleanup in manager.py.
+- [x] Implement startup cleanup in manager.py.
+- [x] Implement non-blocking manager and cluster locking.

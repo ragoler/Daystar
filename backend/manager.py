@@ -79,6 +79,10 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
         return
         
     for cluster in clusters:
+        if cluster.is_running:
+            logger.info(f"Cluster {cluster.name} is already running a step. Skipping.")
+            continue
+            
         # Calculate elapsed minutes
         created_at = datetime.datetime.fromisoformat(cluster.created_at)
         elapsed = current_time - created_at
@@ -90,6 +94,10 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
         if step:
             logger.info(f"Executing step {step} for cluster {cluster.name}")
             
+            # Set running lock
+            from backend.database import set_cluster_running
+            set_cluster_running(cluster.name, True)
+            
             # Call Prober
             use_mock = os.environ.get("USE_MOCK", "true").lower() == "true"
             if use_mock:
@@ -100,7 +108,7 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
                 location = os.environ.get("GCP_REGION", "us-central1")
                 prober = GkeProber(operation=step, project_id=project_id, location=location)
                 
-            result = prober.execute(cluster.name)
+            result = await asyncio.to_thread(prober.execute, cluster.name)
             
             # Update DB
             update_cluster_step(
@@ -131,7 +139,7 @@ async def main_loop():
         prober.cleanup_old_resources()
         
     while True:
-        await process_tick(schedule, datetime.datetime.now())
+        asyncio.create_task(process_tick(schedule, datetime.datetime.now()))
         # Sleep for 60 seconds
         await asyncio.sleep(60)
 
