@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daystar
+  labels:
+    app: daystar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: daystar
+  template:
+    metadata:
+      labels:
+        app: daystar
+    spec:
+      containers:
+      - name: daystar
+        image: daystar-app:latest # Replace with real image path
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: data-volume
+          mountPath: /app/data
+      volumes:
+      - name: data-volume
+        emptyDir: {} # Wiped on pod restart, use PVC for persistence

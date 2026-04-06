@@ -17,8 +17,9 @@ Validate the complete system flow, implement safety tests, and prepare for deplo
 - **[NEW] `tests/test_e2e.py`**: Integration tests simulating the full lifecycle and safety limits.
 
 ### Deployment
-- **[NEW] `Dockerfile`**: For the main Daystat application.
+- **[NEW] `Dockerfile`**: For the main Daystat application in the project root.
 - **[NEW] `k8s/`**: Directory for Kubernetes manifests (Deployment, Service).
+- **Test App**: The small app in `test_app/` already has its own Dockerfile. We will add a task to push it to Artifact Registry (e.g., `us-docker.pkg.dev/$PROJECT_ID/daystar-repo/test-app`) using the `PROJECT_ID` from `.env`.
 
 ### Documentation
 - **[Modify] `README.md`**: Add setup, running, and testing instructions.

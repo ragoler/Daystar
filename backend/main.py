@@ -2,8 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from backend.database import get_active_clusters
+import asyncio
+from backend.manager import main_loop
+from contextlib import asynccontextmanager
 
-app = FastAPI(title="Daystat API")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    asyncio.create_task(main_loop())
+    yield
+
+app = FastAPI(title="Daystat API", lifespan=lifespan)
 
 # Configure CORS
 app.add_middleware(

@@ -2,6 +2,7 @@ import asyncio
 import datetime
 import logging
 import os
+import time
 from typing import List, Optional
 import yaml
 from pydantic import BaseModel
@@ -53,10 +54,16 @@ def cleanup_resources():
 
 async def process_tick(schedule: Schedule, current_time: datetime.datetime = None):
     """Process a single tick (minute) for all clusters."""
+    start_time = time.time()
     if current_time is None:
         current_time = datetime.datetime.now()
         
     logger.info(f"Processing tick at {current_time.isoformat()}")
+    
+    # Automatically initialize a new cluster on every tick
+    cluster_name = f"daystar-{int(time.time())}"
+    init_cluster(cluster_name)
+    logger.info(f"Automatically initialized new cluster: {cluster_name}")
     
     clusters = get_active_clusters()
     
@@ -67,6 +74,8 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
         from backend.database import clusters_table
         clusters_table.truncate()
         logger.info("Purged clusters table.")
+        duration = time.time() - start_time
+        logger.info(f"process_tick took {duration:.4f} seconds (safety limit triggered)")
         return
         
     for cluster in clusters:
@@ -93,6 +102,9 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
                 "success" if result.success else "failed",
                 result.logs
             )
+            
+    duration = time.time() - start_time
+    logger.info(f"process_tick took {duration:.4f} seconds")
 
 async def main_loop():
     """Main scheduling loop."""

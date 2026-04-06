@@ -1,5 +1,11 @@
-- [x] Add `/status` endpoint to `backend/main.py`.
-- [x] Spawn Agent C for UI development.
-- [ ] Create `frontend/index.html`.
-- [ ] Create `frontend/style.css`.
-- [ ] Create `frontend/app.js`.
+- [x] Spawn Agent D for Milestone 7.
+- [x] Setup full integration test environment.
+- [x] Write integration test for full mocked lifecycle (15 mins compressed).
+- [x] Write test validating safety limit interventions.
+- [x] Optimize database queries for rendering dashboard data fast. (Deferred)
+- [x] Add performance telemetry to the manager loop.
+- [x] Create Dockerfile for deploying the completed prober monitoring system.
+- [x] Prepare K8s manifests for the prober deployment.
+- [x] Perform security review of allowed commands running in subprocess.
+- [x] Finalize README documentation with setup and run instructions.
+- [x] Implement automatic cluster creation in manager.py.
