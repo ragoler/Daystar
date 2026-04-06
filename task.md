@@ -1,0 +1,5 @@
+- [x] Move walkthrough.md to root.
+- [x] Initialize Git repository.
+- [/] Add files and create initial commit.
+- [ ] Add remote origin.
+- [ ] Push to main branch.
