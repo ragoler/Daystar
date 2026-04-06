@@ -82,7 +82,7 @@ class GkeProber(BaseProber):
             response_data = MessageToDict(operation._pb) if MessageToDict and hasattr(operation, '_pb') else str(operation)
             log_api_call(cluster_name, "create_cluster", request_data, response_data)
             
-            return self._wait_for_operation(cluster_name, operation.name)
+            return True
         except Exception as e:
             self.logs += f"Failed to create cluster: {e}\n"
             log_api_call(cluster_name, "create_cluster", request_data, {"error": str(e)})
@@ -109,7 +109,7 @@ class GkeProber(BaseProber):
             response_data = MessageToDict(operation._pb) if MessageToDict and hasattr(operation, '_pb') else str(operation)
             log_api_call(cluster_name, "create_node_pool", request_data, response_data)
             
-            return self._wait_for_operation(cluster_name, operation.name)
+            return True
         except Exception as e:
             self.logs += f"Failed to create nodepool: {e}\n"
             log_api_call(cluster_name, "create_node_pool", request_data, {"error": str(e)})

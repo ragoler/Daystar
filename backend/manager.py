@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 SCHEDULE_PATH = os.environ.get("SCHEDULE_PATH", "data/schedule.yaml")
 SAFETY_LIMIT = 15 # As approved by user
+tick_count = 0
 
 class ScheduleItem(BaseModel):
     minute: int
@@ -60,10 +61,15 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
         
     logger.info(f"Processing tick at {current_time.isoformat()}")
     
-    # Automatically initialize a new cluster on every tick
-    cluster_name = f"daystar-{int(time.time())}"
-    init_cluster(cluster_name)
-    logger.info(f"Automatically initialized new cluster: {cluster_name}")
+    # Automatically initialize a new cluster every 3 ticks, starting at tick 1
+    global tick_count
+    tick_count += 1
+    if (tick_count - 1) % 3 == 0:
+        cluster_name = f"daystar-{int(time.time())}"
+        init_cluster(cluster_name)
+        logger.info(f"Automatically initialized new cluster: {cluster_name}")
+    else:
+        logger.info(f"Skipping auto-creation on tick {tick_count}")
     
     clusters = get_active_clusters()
     

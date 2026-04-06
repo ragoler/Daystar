@@ -66,7 +66,7 @@ def test_full_lifecycle_success(test_schedule, tmp_path, monkeypatch):
         test_cluster = next((c for c in clusters if c.name == cluster_name), None)
         assert test_cluster is not None
         
-        assert len(clusters) == minute + 1
+        assert len(clusters) == 1 + ((minute - 1) // 3 + 1)
         
         if minute < 1:
             assert test_cluster.current_step == "initialized"
