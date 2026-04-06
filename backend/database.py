@@ -3,6 +3,9 @@ import os
 from typing import List
 from pydantic import BaseModel
 from tinydb import TinyDB, Query
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DB_PATH = os.environ.get("DATABASE_PATH", "data/db.json")
 

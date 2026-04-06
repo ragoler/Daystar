@@ -7,3 +7,4 @@ requests
 httpx
 google-cloud-container
 pyyaml
+python-dotenv
