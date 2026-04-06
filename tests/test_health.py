@@ -24,3 +24,9 @@ def test_get_schedule():
     assert response.status_code == 200
     assert isinstance(response.json(), list)
     assert len(response.json()) > 0
+
+def test_get_config():
+    response = client.get("/config")
+    assert response.status_code == 200
+    assert "region" in response.json()
+    assert response.json()["region"] == "us-central1"

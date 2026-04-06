@@ -28,6 +28,18 @@ async function fetchSchedule() {
     }
 }
 
+async function fetchConfig() {
+    try {
+        const response = await fetch('http://localhost:8000/config');
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById('region-display').textContent = `Region: ${data.region}`;
+        }
+    } catch (error) {
+        console.error('Fetch config error:', error);
+    }
+}
+
 async function fetchData() {
     try {
         const response = await fetch('http://localhost:8000/status');
@@ -198,6 +210,7 @@ window.addEventListener('click', (event) => {
 
 // Initial fetch
 fetchSchedule().then(() => fetchData());
+fetchConfig();
 
 // Poll every 5 seconds
 setInterval(fetchData, 5000);

@@ -13,3 +13,4 @@
 - [x] Implement configuration for mock/real mode.
 - [x] Move walkthroughs to plan/ directory.
 - [x] Add minutes to UI headers and create /schedule endpoint.
+- [x] Display region from .env in UI title.

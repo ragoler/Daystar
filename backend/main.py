@@ -35,4 +35,9 @@ async def get_schedule():
     from backend.manager import load_schedule
     return load_schedule().schedule
 
+@app.get("/config")
+async def get_config():
+    import os
+    return {"region": os.environ.get("GCP_REGION", "us-central1")}
+
 app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
