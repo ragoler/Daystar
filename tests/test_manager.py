@@ -12,6 +12,7 @@ from backend.manager import process_tick, load_schedule, Schedule, ScheduleItem
 def setup_test_db(monkeypatch, tmp_path):
     test_db_path = tmp_path / "test_db.json"
     monkeypatch.setenv("DATABASE_PATH", str(test_db_path))
+    monkeypatch.setenv("USE_MOCK", "true")
     
     # Re-initialize TinyDB in the module
     backend.database.DB_PATH = str(test_db_path)
@@ -36,7 +37,7 @@ def test_process_tick(test_schedule, tmp_path, monkeypatch):
     
     class PatchedMockProber(backend.manager.MockProber):
         def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs, data_dir=str(mock_dir))
+            super().__init__(*args, **kwargs, data_dir=str(mock_dir), failure_rate=0.0)
             self.sleep_delay = 0
             
     monkeypatch.setattr(backend.manager, "MockProber", PatchedMockProber)
@@ -78,7 +79,7 @@ def test_safety_check(test_schedule, tmp_path, monkeypatch):
     
     class PatchedMockProber(backend.manager.MockProber):
         def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs, data_dir=str(mock_dir))
+            super().__init__(*args, **kwargs, data_dir=str(mock_dir), failure_rate=0.0)
             self.sleep_delay = 0
             
     monkeypatch.setattr(backend.manager, "MockProber", PatchedMockProber)
