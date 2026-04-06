@@ -108,6 +108,9 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
                 location = os.environ.get("GCP_REGION", "us-central1")
                 prober = GkeProber(operation=step, project_id=project_id, location=location)
                 
+            # Log running state before blocking call
+            update_cluster_step(cluster.name, step, "running", "Operation started...")
+            
             result = await asyncio.to_thread(prober.execute, cluster.name)
             
             # Update DB

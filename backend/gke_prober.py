@@ -45,7 +45,7 @@ class GkeProber(BaseProber):
                 success = self._delete_cluster(resource_name)
             elif self.operation == "deploy_app":
                 success = self._deploy_app(resource_name)
-            elif self.operation == "verify_app":
+            elif self.operation in ["verify_app", "verify_cluster"]:
                 success = self._verify_app(resource_name)
             else:
                 self.logs += f"Unknown operation: {self.operation}\n"
@@ -67,7 +67,10 @@ class GkeProber(BaseProber):
         cluster = container_v1.Cluster(
             name=cluster_name,
             initial_node_count=1,
-            resource_labels={"label": "daystar"}
+            resource_labels={"label": "daystar"},
+            node_config=container_v1.NodeConfig(
+                machine_type="e2-micro"
+            )
         )
         
         request_data = {"parent": parent, "cluster": MessageToDict(cluster._pb) if MessageToDict and hasattr(cluster, '_pb') else str(cluster)}
@@ -90,10 +93,10 @@ class GkeProber(BaseProber):
         parent = f"projects/{self.project_id}/locations/{self.location}/clusters/{cluster_name}"
         
         nodepool = container_v1.NodePool(
-            name="default-pool",
+            name="custom-pool",
             initial_node_count=1,
             config=container_v1.NodeConfig(
-                machine_type="e2-medium",
+                machine_type="e2-micro",
             )
         )
         

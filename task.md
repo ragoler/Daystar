@@ -17,3 +17,4 @@
 - [x] Implement dotenv loading using python-dotenv.
 - [x] Implement startup cleanup in manager.py.
 - [x] Implement non-blocking manager and cluster locking.
+- [x] Implement resource saving for GKE clusters (e2-micro).
