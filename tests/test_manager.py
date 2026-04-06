@@ -49,6 +49,9 @@ def test_process_tick(test_schedule, tmp_path, monkeypatch):
     created_at = datetime.datetime.fromisoformat(cluster.created_at)
     tick_time = created_at + datetime.timedelta(minutes=1)
     
+    # Mock init_cluster to avoid creating automatic clusters in test
+    monkeypatch.setattr(backend.manager, "init_cluster", lambda name: None)
+    
     asyncio.run(process_tick(test_schedule, tick_time))
     
     # Verify state

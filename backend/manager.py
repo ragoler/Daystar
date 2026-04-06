@@ -118,6 +118,18 @@ async def main_loop():
     schedule = load_schedule()
     logger.info(f"Loaded schedule: {schedule}")
     
+    # Startup Cleanup
+    use_mock = os.environ.get("USE_MOCK", "true").lower() == "true"
+    logger.info(f"Starting startup cleanup. USE_MOCK={use_mock}")
+    if use_mock:
+        cleanup_resources()
+    else:
+        from backend.gke_prober import GkeProber
+        project_id = os.environ.get("PROJECT_ID")
+        location = os.environ.get("GCP_REGION", "us-central1")
+        prober = GkeProber(operation="cleanup", project_id=project_id, location=location)
+        prober.cleanup_old_resources()
+        
     while True:
         await process_tick(schedule, datetime.datetime.now())
         # Sleep for 60 seconds

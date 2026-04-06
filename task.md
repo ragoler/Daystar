@@ -14,3 +14,4 @@
 - [x] Move walkthroughs to plan/ directory.
 - [x] Add minutes to UI headers and create /schedule endpoint.
 - [x] Display region from .env in UI title.
+- [/] Implement startup cleanup in manager.py.
