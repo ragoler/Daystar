@@ -1,5 +1,5 @@
-- [x] Move walkthrough.md to root.
-- [x] Initialize Git repository.
-- [x] Add files and create initial commit.
-- [x] Add remote origin.
-- [x] Push to main branch.
+- [x] Add `/status` endpoint to `backend/main.py`.
+- [x] Spawn Agent C for UI development.
+- [ ] Create `frontend/index.html`.
+- [ ] Create `frontend/style.css`.
+- [ ] Create `frontend/app.js`.

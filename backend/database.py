@@ -32,6 +32,7 @@ class ApiLog(BaseModel):
 
 class ClusterState(BaseModel):
     name: str
+    created_at: str
     current_step: str
     status: str
     step_logs: List[StepLog] = []
@@ -39,7 +40,12 @@ class ClusterState(BaseModel):
 
 def init_cluster(name: str) -> ClusterState:
     """Initialize a new cluster record."""
-    cluster = ClusterState(name=name, current_step="initialized", status="pending")
+    cluster = ClusterState(
+        name=name,
+        created_at=datetime.datetime.now().isoformat(),
+        current_step="initialized",
+        status="pending"
+    )
     clusters_table.insert(cluster.model_dump())
     return cluster
 

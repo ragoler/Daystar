@@ -6,3 +6,4 @@ tinydb
 requests
 httpx
 google-cloud-container
+pyyaml

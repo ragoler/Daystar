@@ -159,16 +159,16 @@ Everything must be developed and tested within a Python virtual environment (`ve
 - **Technical Details**:
     - Scheduler: `asyncio` sleep loop or `apscheduler`.
 - **Tasks**:
-    - [ ] Create `backend/manager.py` for central orchestration.
-    - [ ] Implement logic to load schedule configuration from a YAML file.
-    - [ ] Define the outer scheduling loop matching the 1-minute increments.
-    - [ ] Implement the state machine that calculates what step a cluster is on.
-    - [ ] Add logic to call the appropriate Prober based on the current step.
-    - [ ] Implement the safety check: count active clusters in parallel.
-    - [ ] Implement target cleanup logic if safety limits are exceeded.
-    - [ ] Integrate DB updates (save state) into the execution loop.
-    - [ ] Add detailed execution logging for manager metrics.
-    - [ ] Write unit tests for manager logic using mock probers in `tests/test_manager.py`.
+    - [x] Create `backend/manager.py` for central orchestration.
+    - [x] Implement logic to load schedule configuration from a YAML file.
+    - [x] Define the outer scheduling loop matching the 1-minute increments.
+    - [x] Implement the state machine that calculates what step a cluster is on.
+    - [x] Add logic to call the appropriate Prober based on the current step.
+    - [x] Implement the safety check: count active clusters in parallel.
+    - [x] Implement target cleanup logic if safety limits are exceeded.
+    - [x] Integrate DB updates (save state) into the execution loop.
+    - [x] Add detailed execution logging for manager metrics.
+    - [x] Write unit tests for manager logic using mock probers in `tests/test_manager.py`.
 - **Exit Criteria / Testing**:
     - **Automated**: Test simulation that runs for mock 5 minutes (fast-forwarded) and verifies correct prober calls.
     - **Manual**: Run the manager for 3 minutes with mock probers and watch terminal output.
@@ -218,16 +218,16 @@ Everything must be developed and tested within a Python virtual environment (`ve
     - Grid: CSS Grid layout.
     - Style: Glassmorphism filters, dark theme.
 - **Tasks**:
-    - [ ] Create static files structure under `frontend/` (HTML, CSS, JS).
-    - [ ] Build the base grid layout (Rows = Time, Cols = Steps).
-    - [ ] Implement CSS dark theme and glassmorphism styling effects.
-    - [ ] Implement JS `fetch()` to pull data from FastAPI status endpoints.
-    - [ ] Create polling mechanism in JS for auto-refresh.
-    - [ ] Implement popover tooltips for displaying logs on hover.
-    - [ ] Add status icons (green check, red cross) based on DB values.
-    - [ ] Format dates and times to standard `hh:mm` format in UI.
-    - [ ] Add loading indicators or skeleton screens.
-    - [ ] Handle disconnected states gracefully with a visual indicator.
+    - [x] Create static files structure under `frontend/` (HTML, CSS, JS).
+    - [x] Build the base grid layout (Rows = Time, Cols = Steps).
+    - [x] Implement CSS dark theme and glassmorphism styling effects.
+    - [x] Implement JS `fetch()` to pull data from FastAPI status endpoints.
+    - [x] Create polling mechanism in JS for auto-refresh.
+    - [x] Implement popover tooltips for displaying logs on hover.
+    - [x] Add status icons (green check, red cross) based on DB values.
+    - [x] Format dates and times to standard `hh:mm` format in UI.
+    - [x] Add loading indicators or skeleton screens.
+    - [x] Handle disconnected states gracefully with a visual indicator.
 - **Exit Criteria / Testing**:
     - **Automated**: Test health check of static file serving.
     - **Manual**: Open UI in browser, verify rows are minutes and columns are steps.
