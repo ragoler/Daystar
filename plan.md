@@ -265,5 +265,7 @@ The following detailed implementation plans are stored in the `plan/` directory:
 - [Async Operations Plan](plan/implementation_plan_async_ops.md)
 - [Async Ops and 3-Min Creation Plan](plan/implementation_plan_async_and_rate.md)
 - [Robust Scheduler Plan](plan/implementation_plan_robust_scheduler.md)
+- [Async Delete Plan](plan/implementation_plan_async_delete.md)
+- [Zero-Node Cluster Plan](plan/implementation_plan_zero_node_cluster.md)
 
 

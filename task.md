@@ -20,3 +20,5 @@
 - [x] Implement resource saving for GKE clusters (e2-micro).
 - [x] Implement async operations and 3-minute creation rate.
 - [x] Implement robust scheduler with missed step recovery.
+- [x] Implement async delete in gke_prober.py.
+- [x] Implement zero-node cluster creation in gke_prober.py.

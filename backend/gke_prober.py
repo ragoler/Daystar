@@ -66,11 +66,8 @@ class GkeProber(BaseProber):
         
         cluster = container_v1.Cluster(
             name=cluster_name,
-            initial_node_count=1,
             resource_labels={"label": "daystar"},
-            node_config=container_v1.NodeConfig(
-                machine_type="e2-micro"
-            )
+            node_pools=[]
         )
         
         request_data = {"parent": parent, "cluster": MessageToDict(cluster._pb) if MessageToDict and hasattr(cluster, '_pb') else str(cluster)}
@@ -97,7 +94,8 @@ class GkeProber(BaseProber):
             initial_node_count=1,
             config=container_v1.NodeConfig(
                 machine_type="e2-micro",
-            )
+            ),
+            locations=[f"{self.location}-a"]
         )
         
         request_data = {"parent": parent, "node_pool": MessageToDict(nodepool._pb) if MessageToDict and hasattr(nodepool, '_pb') else str(nodepool)}
@@ -128,7 +126,7 @@ class GkeProber(BaseProber):
             response_data = MessageToDict(operation._pb) if MessageToDict and hasattr(operation, '_pb') else str(operation)
             log_api_call(cluster_name, "delete_cluster", request_data, response_data)
             
-            return self._wait_for_operation(cluster_name, operation.name)
+            return True
         except Exception as e:
             self.logs += f"Failed to delete cluster: {e}\n"
             log_api_call(cluster_name, "delete_cluster", request_data, {"error": str(e)})
