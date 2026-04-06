@@ -49,6 +49,7 @@ def test_full_lifecycle_success(test_schedule, tmp_path, monkeypatch):
                 os.remove(os.path.join(mock_dir, f))
     monkeypatch.setattr(backend.manager, "cleanup_resources", patched_cleanup)
     monkeypatch.setattr(backend.manager, "SAFETY_LIMIT", 20)
+    monkeypatch.setenv("USE_MOCK", "true")
 
     # Initialize a cluster
     cluster_name = "e2e-test-cluster"

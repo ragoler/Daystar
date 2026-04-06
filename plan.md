@@ -249,3 +249,13 @@ Everything must be developed and tested within a Python virtual environment (`ve
 - **Exit Criteria / Testing**:
     - **Automated**: Passing full suite of unit and integration tests.
 
+## Implementation Plans
+
+The following detailed implementation plans are stored in the `plan/` directory:
+- [Milestone 7 Detailed Plan](plan/implementation_plan_m7_detailed.md)
+- [Automatic Cluster Creation Plan](plan/implementation_plan_auto_create.md)
+- [Configuration Plan (Mock/Real)](plan/implementation_plan_config.md)
+- [Original Milestone Plan](plan/implementation_plan.md)
+- [Milestone 6 Plan](plan/implementation_plan_m6.md)
+- [Milestone 7 Overview Plan](plan/implementation_plan_m7.md)
+

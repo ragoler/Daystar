@@ -9,3 +9,5 @@
 - [x] Perform security review of allowed commands running in subprocess.
 - [x] Finalize README documentation with setup and run instructions.
 - [x] Implement automatic cluster creation in manager.py.
+- [x] Move implementation plans to plan/ directory and update plan.md.
+- [x] Implement configuration for mock/real mode.

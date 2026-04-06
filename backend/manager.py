@@ -91,8 +91,15 @@ async def process_tick(schedule: Schedule, current_time: datetime.datetime = Non
             logger.info(f"Executing step {step} for cluster {cluster.name}")
             
             # Call Prober
-            # For now we use MockProber
-            prober = MockProber()
+            use_mock = os.environ.get("USE_MOCK", "true").lower() == "true"
+            if use_mock:
+                prober = MockProber()
+            else:
+                from backend.gke_prober import GkeProber
+                project_id = os.environ.get("PROJECT_ID")
+                location = os.environ.get("GCP_REGION", "us-central1")
+                prober = GkeProber(operation=step, project_id=project_id, location=location)
+                
             result = prober.execute(cluster.name)
             
             # Update DB
