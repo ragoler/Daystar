@@ -30,4 +30,9 @@ async def health_check():
 async def get_status():
     return get_active_clusters()
 
+@app.get("/schedule")
+async def get_schedule():
+    from backend.manager import load_schedule
+    return load_schedule().schedule
+
 app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")

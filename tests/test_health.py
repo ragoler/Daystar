@@ -18,3 +18,9 @@ def test_static_files():
     response = client.get("/")
     assert response.status_code == 200
     assert "Daystat" in response.text
+
+def test_get_schedule():
+    response = client.get("/schedule")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    assert len(response.json()) > 0

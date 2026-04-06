@@ -258,4 +258,6 @@ The following detailed implementation plans are stored in the `plan/` directory:
 - [Original Milestone Plan](plan/implementation_plan.md)
 - [Milestone 6 Plan](plan/implementation_plan_m6.md)
 - [Milestone 7 Overview Plan](plan/implementation_plan_m7.md)
+- [Startup Cleanup Plan](plan/implementation_plan_startup_cleanup.md)
+
 

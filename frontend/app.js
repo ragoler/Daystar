@@ -15,6 +15,18 @@ const closeBtn = document.querySelector('.close-btn');
 const connectionStatus = document.getElementById('connection-status');
 
 let currentData = [];
+let scheduleData = [];
+
+async function fetchSchedule() {
+    try {
+        const response = await fetch('http://localhost:8000/schedule');
+        if (response.ok) {
+            scheduleData = await response.json();
+        }
+    } catch (error) {
+        console.error('Fetch schedule error:', error);
+    }
+}
 
 async function fetchData() {
     try {
@@ -80,7 +92,11 @@ function renderGrid(clusters) {
     STEPS.forEach(step => {
         const header = document.createElement('div');
         header.className = 'grid-header';
-        header.textContent = formatStepName(step);
+        
+        const scheduleItem = scheduleData.find(item => item.step === step);
+        const minuteSuffix = scheduleItem ? ` (${scheduleItem.minute})` : '';
+        
+        header.textContent = `${formatStepName(step)}${minuteSuffix}`;
         gridContainer.appendChild(header);
     });
 
@@ -181,7 +197,7 @@ window.addEventListener('click', (event) => {
 });
 
 // Initial fetch
-fetchData();
+fetchSchedule().then(() => fetchData());
 
 // Poll every 5 seconds
 setInterval(fetchData, 5000);

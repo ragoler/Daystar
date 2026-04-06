@@ -12,3 +12,4 @@
 - [x] Move implementation plans to plan/ directory and update plan.md.
 - [x] Implement configuration for mock/real mode.
 - [x] Move walkthroughs to plan/ directory.
+- [x] Add minutes to UI headers and create /schedule endpoint.
