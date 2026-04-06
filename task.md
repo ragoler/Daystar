@@ -11,3 +11,4 @@
 - [x] Implement automatic cluster creation in manager.py.
 - [x] Move implementation plans to plan/ directory and update plan.md.
 - [x] Implement configuration for mock/real mode.
+- [x] Move walkthroughs to plan/ directory.
